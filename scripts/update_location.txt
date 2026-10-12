@@ -1,0 +1,228 @@
+// Código para dar update à tabela location_tournaments
+
+
+db.location_tournaments.updateMany({}, [{$set:{Country:{$trim:{input:{$arrayElemAt:[{$split:["$Country",', ']},-1]}}}}}]);
+
+
+
+db.location_tournaments.updateMany({Country: { $in: ["Alberta", "Canda", "Ontaria", 'Calgary']}}, {$set: { Country: "Canada" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Antalya"]}}, {$set: { Country: "Turkey" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["AR", "United S", "OK", "Texas", "U.S.A", "U.S.A.", "USA", 'Delray Beach', 'Salinas']}}, {$set: { Country: "United States" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["ARG", "Arg.", "Argent", 'Buenos Aires']}}, {$set: { Country: "Argentina" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Aut."]}}, {$set: { Country: "Austria" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Bakio", "Melilla", "Valldoreix"]}}, {$set: { Country: "Spain" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Belgrade", "SCG", "SErgia &amp; M", "Yug."]}}, {$set: { Country: "Serbia" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Bolivia"]}}, {$set: { Country: "Bolivia, Plurinational State of" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Bosnia", "Bosnia &amp; Herzegovi", "Bosnia &amp; Herzegovina"]}}, {$set: { Country: "Bosnia and Herzegovina" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Bourg-en-Bresse", "Forbach", "Lesser Antilles", "Uriage", 'Pau', 'Toulouse']}}, {$set: { Country: "France" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["BRA", "Braz"]}}, {$set: { Country: "Brazil" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Britain", "England", "Great Britain", "Scotland", "UK", "Wales", "GBR", 'London']}}, {$set: { Country: "United Kingdom" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Brunei"]}}, {$set: { Country: "Brunei Darussalam" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Chinese Ta", "Chinese Taip", "Chinese Taipei", "Taipei", "Taiwan", "TPE",'Kaohsiung']}}, {$set: { Country: "Taiwan, Province of China" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["CIV", "Ivory Coast", 'Abidjan']}}, {$set: { Country: "Côte d’lvoire" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["COL", "Col", "Columbia", 'Villavicencio']}}, {$set: { Country: "Colombia" }});
+
+db.location_tournaments.updateMany({$or: [{ Country: "Crotia" },{ City_country: "Zagreb, Yugoslavia"},{ City_country: "Umag, Yugoslavia" }]},{$set: { Country: "Croatia" }});
+
+db.location_tournaments.updateMany({$or: [{ Country: "Curacao" }, { Country: 'Willemstad'}, { City_country: "Curacao, Dutch Antil"}]},{$set: { Country: "Curaçao" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["CZE", "Czech Rep.", "Czech Repub", "Czechoslovakia", 'Klatovy', 'Kolin']}}, {$set: { Country: "Czech Republic" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["D.R."]}}, {$set: { Country: "Dominican Republic" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["DEN."]}}, {$set: { Country: "Denmark" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Dutch Anti", "NED", "The Hague", "The Nethe", "The Netherlands", 's-Hertogenbosch']}}, {$set: { Country: "Netherlands" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Esch-sur-Alzette"]}}, {$set: { Country: "Luxembourg" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Eygpt"]}}, {$set: { Country: "Egypt" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Fiji Island"]}}, {$set: { Country: "Fiji" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["GUA", 'Guatemala City']}}, {$set: { Country: "Guatemala" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Hasharon", "ISR", "Isra", 'Ramat Hasharon']}}, {$set: { Country: "Israel" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["HKG"]}}, {$set: { Country: "Hong Kong" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Hu", "Hunary"]}}, {$set: { Country: "Hungary" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["INA", 'Surabaya']}}, {$set: { Country: "Indonesia" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Iran", 'Tehran']}}, {$set: { Country: "Iran, Islamic Republic of" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Ita", "Sardinia", 'Reggio Calabria']}}, {$set: { Country: "Italy" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Korea", "South Korea"]}}, {$set: { Country: "Korea, Republic of" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Macedona", "Macedonia"]}}, {$set: { Country: "Macedonia, the Former Yugoslav Republic of" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["MAS"]}}, {$set: { Country: "Malaysia" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Meixco", 'Mexico City', 'Toluca']}}, {$set: { Country: "Mexico" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Moldova", "Moldovia"]}}, {$set: { Country: "Moldova, Republic of" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Monastir", 'Tunis']}}, {$set: { Country: "Tunisia" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["New Caledoni"]}}, {$set: { Country: "New Caledonia" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["New Zealan", "NZ", "NZL", 'Wellington']}}, {$set: { Country: "New Zealand" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["PHI"]}}, {$set: { Country: "Philippines" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Reunion Island"]}}, {$set: { Country: "Réunion" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Russia", 'Korolev', 'Moscow']}}, {$set: { Country: "Russian Federation" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["SA", "South", "South  Africa", 'Johannesburg', 'Nelspruit', 'Polokwane', 'Pretoria']}}, {$set: { Country: "South Africa" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Salvador", "San Salvador"]}}, {$set: { Country: "El Salvador" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Santiago"]}}, {$set: { Country: "Chile" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Slovak","Slovak R", "Slovak Republic", "Slovkia", 'Presov']}}, {$set: { Country: "Slovakia" }});
+
+db.location_tournaments.updateMany({$or: [{ Country: "Solvenia" },{ City_country: "Ljubljana, Yugoslavia"}]},{$set: { Country: "Slovenia" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Switz.", 'Neuchatel']}}, {$set: { Country: "Switzerland" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Syria"]}}, {$set: { Country: "Syrian Arab Republic" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Tasmania", "Victoria"]}}, {$set: { Country: "Australia" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["THA", 'Bangkok']}}, {$set: { Country: "Thailand" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["TRI"]}}, {$set: { Country: "Trinidad and Tobago" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["U.A.E."]}}, {$set: { Country: "United Arab Emirates" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Uraguay", "URU"]}}, {$set: { Country: "Uruguay" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Uzb.", 'Tashkent']}}, {$set: { Country: "Uzbekistan" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Venezuela"]}}, {$set: { Country: "Venezuela, Bolivarian Republic of" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Vietnam"]}}, {$set: { Country: "Viet Nam" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Wetzlar", 'Braunschweig']}}, {$set: { Country: "Germany" }}); 
+
+db.location_tournaments.updateMany({$or: [{ Country: "Wrocklaw" },{ City_country: "Belchatow, Yugoslavia"}]},{$set: { Country: "Poland" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["Budva, Yugoslavia"]}}, {$set: { Country: "Montenegro" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Laos"]}}, {$set: { Country: "Lao People’s Democratic Republic" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Bolivia/Chile", "Santa Cruz de la Sie"]}}, {$set: { Country: "Bolivia, Plurinational State of" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["Botwana"]}}, {$set: { Country: "Botswana" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Brazi", "Bahia", "Florianapolis",'Brasilia', 'Guarulhos', 'Rio de Janeiro']}}, {$set: { Country: "Brazil" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["The Netherlands", "Elndhoven"]}}, {$set: { Country: "Netherlands" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["Portschach"]}}, {$set: { Country: "Austria" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["U.S.A.", "Caribbean"]}}, {$set: { Country: "United States" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["Great Britain", "Devon", "England"]}}, {$set: { Country: "United Kingdom" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["Bosnia &amp; Herzegovina"]}}, {$set: { Country: "Bosnia and Herzegovina" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Mondorf-Les-Bains", "Esch/Alzette"]}}, {$set: { Country: "Luxembourg" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["Korea"]}}, {$set: { Country: "Korea, Republic of" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Domincan Republic", 'Santo Domingo']}}, {$set: { Country: "Dominican Republic" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["West Perth"]}}, {$set: { Country: "Australia" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Palma de Mallorca", 'Barcelona']}}, {$set: { Country: "Spain" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Sharm El Sheikh", "Cairo, Egpyt"]}}, {$set: { Country: "Egypt" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["Angleur - Liege"]}}, {$set: { Country: "France" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Novaya Kakhovka"]}}, {$set: { Country: "Ukraine" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Urugay"]}}, {$set: { Country: "Uruguay" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Chinese Taipei"]}}, {$set: { Country: "Taiwan, Province of China" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Kuala Lampur"]}}, {$set: { Country: "Malaysia" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Mexica"]}}, {$set: { Country: "Mexico" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Ciudad de Habana", 'Havana']}}, {$set: { Country: "Cuba" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Manilla", "Phillipines", 'Manila']}}, {$set: { Country: "Philippines" }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["Portoroz"]}}, {$set: { Country: "Italy" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Slovak Republic", 'Bratislava']}}, {$set: { Country: "Slovakia" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Venezeuela", 'Lara']}}, {$set: { Country: "Venezuela, Bolivarian Republic of" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["TBC"]}}, {$set: { Country: "United Kingdom" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["TBD", 'TBA']}}, {$set: { Country: "United States" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Serbia &amp; Montenegro", 'Novi Sad, Yugoslavia', 'Belgrade, Yugoslavia']}}, {$set: { Country: "Serbia" }}); 
+
+db.location_tournaments.updateMany({Country: { $in: ["Bosnia &amp; Herzego"]}}, {$set: { Country: "Bosnia and Herzegovina" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Czech Republic", 'Czechoslovakia']}}, {$set: { Country: "Czech Republic" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Devonport"]}}, {$set: { Country: "Australia" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Macedonia"]}}, {$set: { Country: "Macedonia, the Former Yugoslav Republic of" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["Soviet Union"]}}, {$set: { Country: "Georgia" }}); 
+
+db.location_tournaments.updateMany({City_country: { $in: ["U.A.E."]}}, {$set: { Country: "United Arab Emirates" }});
+
+db.location_tournaments.updateMany({Country: { $in: ['Bucharest', 'Constanta']}}, {$set: { Country: 'Romania'}});
+
+db.location_tournaments.updateMany({Country: { $in: ['Casablanca']}}, {$set: { Country: 'Morocco'}});
+
+db.location_tournaments.updateMany({Country: { $in: ["Doha"]}}, {$set: { Country: "Qatar" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Dublin"]}}, {$set: { Country: "Ireland" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Faro", 'Estoril']}}, {$set: { Country: "Portugal" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Guayaquil"]}}, {$set: { Country: "Ecuador" }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Harare"]}}, {$set: { Country: 'Zimbabwe' }});
+
+db.location_tournaments.updateMany({Country: { $in: ["Jakarta", 'Kolkata']}}, {$set: { Country: 'India' }});
+
+db.location_tournaments.updateMany({Country: { $in: ['Lahore']}}, {$set: { Country: 'Pakistan' }});
+
+db.location_tournaments.updateMany({Country: { $in: ['Liege']}}, {$set: { Country: 'Belgium' }});
+
+db.location_tournaments.updateMany({Country: { $in: ['Minsk']}}, {$set: { Country: 'Belarus' }});
+
+db.location_tournaments.updateMany({Country: { $in: ['Montevideo']}}, {$set: { Country: 'Uruguay' }});
+
+db.location_tournaments.updateMany({Country: { $in: ['Nanjing', 'Wuhan']}}, {$set: { Country: 'China' }});
+
+db.location_tournaments.updateMany({Country: { $in: ['Singapore']}}, {$set: { Country: 'Singapore' }});
+
+db.location_tournaments.updateMany({City_country: { $in: ["'s-Hertogenbosch"]}}, {$set: { Country: "Netherlands" }}); 

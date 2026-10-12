@@ -1,0 +1,224 @@
+-- Tratamentos e Limpeza das Tabelas
+
+
+-- Tabela countries
+
+
+update countries set Name="Bolivia, Plurinational State of" where Name="Bolivia";
+update countries set Name="Venezuela, Bolivarian Republic of" where Name="Venezuela";
+update countries set Name="Moldova, Republic of" where Name="Moldova";
+update countries set Name="Iran, Islamic Republic of" where Name="Iran";
+UPDATE countries SET Name = "Korea, Republic of" WHERE Name = "Korea" and Code = ' Republic Of';
+UPDATE countries SET Name = "Korea, Democratic People's Republic of" WHERE Name = "Korea" and Code = " Democratic People's Republic of";
+UPDATE countries SET Name = "Taiwan, Province of China" WHERE Name = "Taiwan";
+update countries set Name = "Macedonia, the Former Yugoslav Republic of" where Name = "Macedonia";
+update countries set Name="Bonaire, Sint Eustatius and Saba" where Name="Bonaire";
+update countries set Name="Virgin Islands, British" where Name="Virgin Islands" and Code = ' British';
+update countries set Name="Virgin Islands, U.S." where Name="Virgin Islands" and Code = ' U.S.';
+update countries set Name="Congo, the Democratic Republic of the" where Name="Congo" and Code = ' the Democratic Republic of the';
+update countries set Name="Micronesia, Federated States of" where Name="Micronesia";
+update countries set Name="Palestine, State of" where Name="Palestine";
+update countries set Name="Saint Helena, Ascension and Tristan da Cunha" where Name="Saint Helena";
+update countries set Name="Tanzania, United Republic of" where Name="Tanzania";
+
+update countries set Code="BO" where Name="Bolivia, Plurinational State of";
+update countries set Code="IR" where Name="Iran, Islamic Republic of";
+update countries set Code="KR" where Name="Korea, Republic of";
+update countries set Code="KP" where Name="Korea, Democratic People's Republic of";
+update countries set Code="MD" where Name="Moldova, Republic of";
+update countries set Code="TW" where Name="Taiwan, Province of China";
+update countries set Code="VE" where Name="Venezuela, Bolivarian Republic of";
+update countries set Code="MK" where Name="Macedonia, the Former Yugoslav Republic of";
+update countries set Code="BQ" where Name="Bonaire, Sint Eustatius and Saba";
+update countries set Code="VG" where Name="Virgin Islands, British";
+update countries set Code="VI" where Name="Virgin Islands, U.S.";
+update countries set Code="CD" where Name="Congo, the Democratic Republic of the";
+update countries set Code="FM" where Name="Micronesia, Federated States of";
+update countries set Code="PS" where Name="Palestine, State of";
+update countries set Code="SH" where Name="Saint Helena, Ascension and Tristan da Cunha";
+update countries set Code="TZ" where Name="Tanzania, United Republic of";
+UPDATE `countries` SET `code` = 'US' WHERE `countries`.`code` = 'US\r';
+
+ALTER TABLE countries DROP COLUMN `erro`;
+
+
+-- Verificar se as cidades estão atribuídas aos países corretos
+
+
+update player_borncountry, world_cities
+set player_borncountry.Country = world_cities.country 
+where player_borncountry.pl_city_country=world_cities.city; 
+
+
+update player_borncountry, world_cities
+set player_borncountry.Country=world_cities.country 
+where player_borncountry.pl_city_country=world_cities.country and not instr(pl_city_country,',')>0; 
+
+
+
+-- Adicionar a coluna Country à tabela player
+
+
+
+alter table player add column Country Varchar(152) AFTER Born;
+
+
+
+-- Adicionar os países de player_borncountry à nova coluna em player
+
+
+update player, player_borncountry 
+set player.Country = player_borncountry.Country 
+where player.Born = player_borncountry.pl_city_country;
+
+
+
+-- Update ao nome dos países, para igualar à tabela countries
+
+
+update player set Country = "Taiwan, Province of China" where Country = "Taiwan";
+update player set Country = "Venezuela, Bolivarian Republic of" where Country = "Venezuela";
+update player set Country = "Bosnia and Herzegovina" where Country = "Bosnia";
+update player set Country = "United Kingdom" where Country = "Scotland";
+update player set Country = "Moldova, Republic of" where Country = "Moldova";
+update player set Country = "Bolivia, Plurinational State of" where Country = "Bolivia";
+update player set Country = "Macedonia, the Former Yugoslav Republic of" where Country = "Macedonia";
+update player set Country = "Macedonia, the Former Yugoslav Republic of" where Country = "North Macedonia";
+update player set Country = "Ukraine" where Country = "Crimea";
+update player set Country = "United States" where Country like "%US%";
+update player set Country = "Czech Republic" where Country = "Czechia";
+update player set Country = "Congo" where Country = "Democratic Republic of the Congo";
+update player set Country = "Congo" where Country = "Congo (Kinshasa)";
+update player set Country= "Iran, Islamic Republic of" where Country = "Iran";
+update player set Country = "Côte d'Ivoire" where Country = "Ivory Coast";
+update player set Country="Côte d'Ivoire" where Country like "%Côte %";
+update player set Country = "Portugal" where Country = "Lisboa";
+update player set Country = "Korea, Republic Of" where Country = "South Korea";
+update player set Country = "Korea, Republic Of" where Country = "Korea, South";
+update player set Country = "Tanzania, United Republic of" where Country = "Tanzania";
+update player set Country = "Viet Nam" where Country = "Vietnam";
+update player set Country = "Brunei Darussalam" where Country = "Brunei";
+update player set Country = "Syrian Arab Republic" where Country = "Syria";
+UPDATE player SET Country = NULL WHERE Country = '';
+
+
+-- Substituir o nome dos países em player pelo codes
+
+
+update player, countries set player.Country = countries.code where player.Country = countries.Name;
+
+
+
+-- Criação da coluna Backhand e tratamento dos dados para hand e backhand em player 
+
+
+alter table player add column BackHand Varchar(152) after Hand;
+
+UPDATE player SET BackHand = TRIM(SUBSTRING_INDEX(Hand, ',', -1));
+
+UPDATE player SET Hand = SUBSTRING_INDEX(Hand, ',', 1);
+
+
+
+-- Updates à tabela tournaments, fazer o mesmo que para player
+
+
+
+update location_tournaments , world_cities set location_tournaments.Country=world_cities.country where location_tournaments.City_country=world_cities.city;
+
+update location_tournaments, world_cities
+set location_tournaments.Country=world_cities.country 
+where location_tournaments.City_country=world_cities.country and not instr(City_country,',')>0;
+
+
+alter table tournaments add column Country Varchar(152) after Location;
+
+
+update tournaments,location_tournaments set tournaments.Country=location_tournaments.Country where 
+tournaments.Location=location_tournaments.City_country;
+
+
+update tournaments set Country="Botswana" where Name="Botswana F1";
+update tournaments set Country="Egypt" where Name="Egypt F1" or Name="Egypt F2" or Name="Egypt F3";
+update tournaments set Country="France" where Name="France F13";
+update tournaments set Country="United Kingdom" where Name="Great Britain F7";
+update tournaments set Country="India" where Name="India F4" or Name="India F5";
+update tournaments set Country="Italy" where Name="Italy F10" or Name="Italy F4" or Name="Italy F5" or Name="Italy F9";
+update tournaments set Country="United States" where Name="U.S.A. F13" or Name="U.S.A. F21" or Name="U.S.A. F29" or Name="U.S.A. F32" or Name="U.S.A. F5";
+update tournaments set Country="Zimbabwe" where Name="Zimbabwe F1";
+
+update tournaments set Country="Côte d'Ivoire" where Country like "%Côte %";
+update tournaments set country = "Lao People's Democratic Republic" where country = "Laos";
+update tournaments set country = "Bolivia, Plurinational State of" where country = "Bolivia";
+update tournaments set country = "Brunei Darussalam" where country = "Brunei";
+update tournaments set country = "Iran, Islamic Republic of" where country = "Iran";
+update tournaments set country = "Russian Federation" where country = "Russia";
+update tournaments set country = "Syrian Arab Republic" where country = "Syria";
+update tournaments set country = "Taiwan, Province of China" where country = "Taiwan";
+update tournaments set country = "Venezuela, Bolivarian Republic of" where country = "Venezuela";
+update tournaments set country = "Viet Nam" where country = "Vietnam";
+update tournaments set country = "Australia" where country = "Pacific Oceania";
+update tournaments set country = "Serbia" where country = "Yugoslavia";
+
+update tournaments , countries  set tournaments.Country = countries.code where tournaments.Country = countries.Name; 
+
+
+
+-- Criação da coluna id_player em games
+
+
+alter table games add column id_player VARCHAR(10);
+
+
+alter table games add index(Player, id_player); 
+alter table player add index (Name, id_player); 
+
+
+update games, player  set games.id_player = player.id_player where games.Player = player.Name;
+
+
+alter table games drop index Player; 
+alter table player drop index Name; 
+
+
+
+-- Criação de chaves primárias e estrangeiras  
+
+
+
+alter table countries add primary key(code); 
+
+
+alter table tournaments add primary key (Name,Date);
+alter table tournaments add foreign key (Country) references countries(code) on delete restrict on update cascade; 
+
+
+ALTER TABLE player ADD PRIMARY KEY(id_player);
+alter table player add foreign key (Country) REFERENCES countries(code) on 
+delete restrict on update cascade;
+
+
+alter table games add id int not null auto_increment primary key; 
+ALTER TABLE games ADD FOREIGN KEY (id_player) REFERENCES player(id_player) on delete restrict on update cascade;
+alter table tournaments add index (Date);
+ALTER TABLE games ADD FOREIGN KEY (Tournament, Date)  REFERENCES tournaments (Name, Date)ON DELETE RESTRICT ON UPDATE CASCADE;
+
+
+
+ALTER TABLE `tournaments` DROP INDEX `Date`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

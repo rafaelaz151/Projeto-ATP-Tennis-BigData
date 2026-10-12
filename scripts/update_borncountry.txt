@@ -1,0 +1,265 @@
+// Código para dar update à tabela player_borncountry
+
+db.player_borncountry.updateMany({},
+[{$set:{Country:{$trim:{input:{$arrayElemAt:[{$split:["$Country",', ']},-1]}}}}}]);
+
+db.player_borncountry.updateMany({ pl_city_country: { $in: ["Ann Arbor, MI", "Sacramento, CA", "Los Angeles, CA", "Davenport, IA", "Washington, DC", "Pasadena, CA", "Oakland, CA", "Honolulu, HI", "Atlanta, GA", "Milwaukee, WI", "Tampa, FL", "Santa Clara, CA", "Columbus, GA", "Thomasville, GA", "Wichita, KS", "Hoboken, NJ", "Bradenton, FL", "Belfonte, PA", "Pacific Palisades, CA", "Redwood City, CA", "Boonton, NJ", "Avon, CT", "Sioux City, IA", "Columbus, OH", "New York, NY", "Minneapolis, MN", "Highpoint, NC", "Scarsdale, NY", "Chicago, IL", "Hollywood, CA", "Metairie, LA", "West Bloomfield, MI", "Berkeley, CA", "Miami, FL", "Irvine, CA", "Flushing, NY", "Fort Lauderdale, FL", "Stanford, CA", "Seattle, WA", "Jacksonville, FL", "Medina, OH", "Dallas, TX", "Fort Dix, NJ", "Buffalo, NY", "Hialeah, FL", "Charleston, WV", "Mobile, AL", "Rockville Center, NY", "San Francisco, CA", "Arlington, TX", "Wilmington, NC", "Memphis, TN", "St. Louis, MO", "Newport News, VA", "Naperville, IL", "Asheville, NC", "Grayling, MI", "Birmingham, AL", "Glen Cove, NY", "Bogalusa, LA", "Mountainview, CA", "Laguna Beach, CA", "Walnut Creek, CA", "Chico, CA", "Newport Beach, CA", "Boulder, CO", "Annandale, VA", "Ludington, MI", "Manhasset, NY", "Toledo, OH", "South Bend, IN", "Bartow, FL", "Newark, NJ", "Harvey, IL", "Glendale, CA", "San Jose, CA", "Merrick, NY", "Fort Ord, CA", "Hattiesburg, MS", "Hartland, WI", "Cincinnati, OH", "Bloomfield Hills, MI, US", "Huntington, NY", "Auburn, NY", "Springfield, MA", "Santa Barbara, CA", "Shelby, NC", "The Dalles, OR", "Indianapolis, IN", "Pittsburgh, PA", "Richmond, VA", "Columbia, SC", "Torrance, CA", "San Francisco, CA", "Greensboro, NC, USA", "Tarzana", "New York", "Hershey", "Chandler Arizona", "Princeton NJ", "Does Moines", "Atlanta Ga", "Winston Salem", "Lithonia GA", "Greenbrae", "durham nc USA", "New York New York", "Arlington", "Boca Raton", "Boston", "Bradenton", "Calhoun", "Colorado Springs", "Concord", "Davis", "Fargo", "Fresno", "Galveston", "Hackensack", "Hatfield", "Hilton Head Island", "Holtsville", "Indianapolis", "Irvine", "Irvington", "Kalamazoo", "Loma linda", "Miami", "Mineola", "Murrieta", "New York City", "Olathe", "Olney", "Omaha", "Palo Alto", "Princeton", "Sacramento", "Salem", "San Diego", "San Jose", "San Juan", "Stamford", "West Palm Beach", "Alexandria", "Altadena", "Atlanta", "Austin", "Des Moines", "San Antonio", "Santa Ana", "Santa Monica", "Spokane", "Tulsa", "Walnut Creek"] } }, { $set: { Country: "United States" } });
+
+db.player_borncountry.updateMany({Country: { $in: ["U.S.A", 'U.S.A.', 'USA', 'United States', 'PA U.S.A.', 'CA USA', 'California', 'D.C.', 'Idaho', 'Illinois', 'Maryland', 'Michigan', 'North Carolina', 'Ohio', 'Tennessee', 'Texas', 'Florida', 'New York'] } },{ $set: {Country: "United States" } })
+
+db.player_borncountry.updateMany({Pl_city_country: { $in: ["United States"] } },{ $set: {Country: "United States" } })
+
+db.player_borncountry.updateMany({Country: { $in: ["Barcelona", "Spai", 'Adeje', 'Algemesi', 'Barbastro', 'Burgos', 'Elche', 'Gijon', 'Jerez de la frontera', 'Leon', 'MADRID', 'Madrid', 'Pamplona', 'San Sebastian', 'Sant Carles de la Rapita','Valencia']}}, {$set: { Country: "Spain" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Bosnia-Herzegovina", 'Sarajevo', 'Bosnia']}},{$set: { Country: "Bosnia and Herzegovina" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Accra"]}},{$set: { Country: "Ghana" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Camboda"]}},{$set: { Country: "Cambodia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Canda", 'Calgary', 'Vancouver']}},{$set: { Country: "Canada" }}); 
+
+db.player_borncountry.updateMany({Country: { $in: ["Chinese Taipei","Taipei", 'Taiwan']}},{$set: { Country: "Taiwan, Province of China" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Cz Republic","CZE","Czech Rep.","Czech Republic","Czech.","Czechia","Czechoslovakia"]}},{$set: { Country: "Czech Republic" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Democratic Republic of the Congo", 'Republic of Congo']}},{$set: { Country: "Congo" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Dominican Rep.", 'Puerto Plata', 'Santiago De Los Caballeros', 'Santo Domingo']}},{$set: { Country: "Dominican Republic" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["England","Essex","Great Britain","Norfolk", 'Scotland']}},{$set: { Country: "United Kingdom" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["GER","Rumania", 'Achim', 'Aschaffenburg']}},{$set: { Country: "Germany" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Grand Bahamas"]}},{$set: { Country: "Bahamas" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Holland","The Netherlands", 'Alphen aan den Rijn']}},{$set: { Country: "Netherlands" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Haryana", 'Bengaluru', 'Chennai', 'Delhi', 'Hyderabad','Kolkata', 'MUMBAI', 'Mumbai', 'Mysore', 'Pune', 'Visakhapatnam']}},{$set: { Country: "India" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Ivory Coast", 'Abidjan']}},{$set: { Country: "Côte d'Ivoire" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["BRA","Brasil","Mato Grosso","Pernambuco", 'Belo Horizonte', 'Brasilia', 'Campinas', 'Curitiba', 'Porto Alegre', 'Santa Cruz do Sul', 'Sertaozinho', 'Uruguaiana']}},{$set: { Country: "Brazil" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["North-Ossetia","Russia", 'Gatchina', 'Kazan', 'MOSCOW', 'Moscow', 'Penza', 'Samara', 'Taganrog', 'Tomsk', 'Ufa', 'novosibirsk']}},{$set: { Country: "Russian Federation" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Osaka","Tokyo"]}},{$set: { Country: "Japan" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["RSA", 'Durban', 'Edenvale', 'Port Elizabeth', 'Pretoria']}},{$set: { Country: "South Africa" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Slovak","Slovak Republic", 'Bratislava', 'Trnava']}},{$set: { Country: "Slovakia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Vietnam"]}},{$set: { Country: "Viet Nam" }});
+
+db.player_borncountry.updateMany({$and: [{ Country: "Yugoslavia" },{ pl_city_country: "Belgrade, Yugoslavia" }]},{$set: { Country: "Serbia" }});
+
+db.player_borncountry.updateMany({$and: [{ Country: "Yugoslavia" },{ pl_city_country: "Vrbas, Yugoslavia" }]},{$set: { Country: "Serbia" }});
+
+db.player_borncountry.updateMany({$and: [{ Country: "Yugoslavia" },{ pl_city_country: "Zagreb, Yugoslavia" }]},{$set: { Country: "Croatia" }});
+
+db.player_borncountry.updateMany({$and: [{ Country: "Yugoslavia" },{ pl_city_country: "Split, Yugoslavia" }]},{$set: { Country: "Croatia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["ARG", "Argentin", "Buenos Aires", 'C rdoba', 'Corrientes', 'Santa Fe', 'Cordoba']}},{$set: { Country: "Argentina" }})
+
+
+db.player_borncountry.updateMany({Country: { $in: ["AUS","Aust.","Aust..","S.A. Australia","South Australia","Victoria", 'Adelaide', 'Sydney'] } },{ $set: {Country: "Australia" } })
+
+db.player_borncountry.updateMany({Country: { $in: ["Bosnia & Herzegovina"] } },{ $set: {Country: "Bosnia and Herzegovina" } })
+
+db.player_borncountry.updateMany({Country: { $in: ["Czech Repbulic", 'Prague'] } },{ $set: {Country: "Czech Republic" } })
+
+db.player_borncountry.updateMany({Country: { $in: ["Korea (South)", "Korea", 'Daejeon', 'Seoul'] } },{ $set: {Country: "Korea, Republic of" } })
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /C.*ret/i},{pl_city_country: /S.*vres/i}] }, { $set: { Country: "France" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /L.*beck/i }, { pl_city_country: /M.*nchengladbach/i },{pl_city_country: /.*stringen/i},{pl_city_country: /Gr.*felfing/i},{pl_city_country: /T.*bingen/i}] }, { $set: { Country: "Germany" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Eksj.*/i}] }, { $set: { Country: "Japan" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Chascom.*s/i},{ pl_city_country: /Ciudad Aut.*noma de Buenos/i}] }, { $set:{ Country:"Argentina" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Hyvink.*.*/i}] }, { $set: { Country: "Finland" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Noum.*/i}] }, { $set: { Country: "New Caledonia" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Li.*ge/i}] }, { $set: { Country: "Belgium" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Oliveira de Azem.*is/i}] }, { $set: { Country: "Portugal" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Paysand.*/i}] }, { $set: { Country: "Uruguay" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /S.*o Paulo/i},{pl_city_country: /Londrina- Paran.*/i},{pl_city_country: /S.*o Bernardo do Campo/i}] }, { $set: { Country: "Brazil" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Hodon.*n/i},{pl_city_country: /Hradec Kr.*lov.*/i}] }, { $set: { Country: "Czech Republic" } });
+
+db.player_borncountry.updateMany({ $or: [{ pl_city_country: /Ciri.*/i}] }, { $set: { Country: "Italy" } });
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["HEILONGJIANG","sichuan suining","Changhwa","Hunan","Jiangsu","Xin jiang", 'Dalian', 'Shanghai', 'Tianjin', 'Wuhan', 'tianjin']}},{$set: { Country: "China" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Sucy En Brie","Saint-julien-en-genevois","Villeneuve saint Georges","Nogent sur marne","Saint Denis Reunion","C ret","Saint Jean de Maurienne","Schoelcher","Pouillon","carhaix plougher","S vres","Saint Etienne","Lons le saunier","Le Pont-De-Beauvoisin","Lons le saunier","Le Pont-De-Beauvoisin","Levallois",       'Aix-en-Provence', 'Ajaccio', 'BASTIA', 'BREST', 'Bayonne', 'Biarritz', 'Bordeaux', 'Boulogne-Sur-Mer', 'Carcassonne', 'Clichy', 'Dunkerque', 'Frejus', 'Gonesse', 'Grenoble',            'La Roche-sur-Yon', 'Longjumeau', 'Lyon', 'Marseille', 'Martigues', 'Montpellier', 'NIMES', 'Neuilly-sur-Seine', 'PARIS', 'Paris', 'REIMS', 'Rennes', 'Rueil-Malmaison','Saint-Nazaire', 'Strasbourg', 'Suresnes', 'Toulon', 'Toulouse', 'Villeurbanne']}},{$set: { Country: "France" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Krivoy Rog","Dnepropetrovsk","Kiev","Evpatoria", 'Chernivtsi', 'Donetsk']}},{$set: { Country: "Ukraine" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["M nchengladbach"," stringen","Gr felfing","Cologne","L beck","Weiden in der Oberpfalz","schwaebischhall","Nuremberg","Wasserburg am Inn","Duesseldorf","T bingen","Muenster","Bergisch - Gladbach", 'Bonn', 'Bremen', 'Duisburg', 'Essen', 'Forchheim', 'Friedrichshafen', 'Hamburg', 'Itzehoe', 'Munich', 'Nurtingen', 'Paderborn', 'Rotenburg', 'Starnberg', 'Traunstein', 'Wiesbaden']}},{$set: { Country: "Germany" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["St Kilda East","Subiaco","Campbelltown","Monto","Port Lincoln","Port Pirie", 'Gold Coast', 'Melbourne', 'Penrith', 'Perth', 'Traralgon']}},{$set: { Country: "Australia" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Gothenburg","Hjo", 'Karlskrona', 'Lund', 'Stockholm', 'Kristianstad']}},{$set: { Country: "Sweden" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Gangwonto", "Korea, Democratic People’s Republic of"]}},{$set: { Country: "Korea, Republic of" }}); 
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Rm Valcea","Bucuresti", 'Bacau', 'Bucharest', 'Constanta', 'Cugir', 'Iasi', 'Pitesti', 'Ploiesti']}},{$set: { Country: "Romania" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Lodz","Priemysl","Ostrow Wlkp","Wroclaw","Warszawa","Walbrzych", 'LODZ', 'Tomaszow Mazowiecki', 'Warsaw', 'Zielona Gora', 'warsaw']}},{$set: { Country: "Poland" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["kanagawa","Hyogo","Eksj ","Hyougo","Saitma","Osaka Japan","nishinomiya", 'Fukushima', 'Ishikawa']}},{$set: { Country: "Japan" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["AN SUNG","Johanesburg","Gauteng"]}},{$set: { Country: "South Africa" }}); 
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Schwaz","Wr.Neustadt","Hall in Tirol","Klagenfurt","Portschach am Worthersee", 'Brisbane', 'Graz', 'Linz', 'Vienna']}},{$set: { Country: "Austria" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Villa Maria Cordoba","Capital Federal","Rauch","Chascom s","Mar del Palta","Bragado","Marco Juarez", 'Bahia Blanca', 'Balcarce', 'Buenos aires', 'La Plata', 'Mendoza', 'Merlo', 'Pilar', 'Villa Gesell']}},{$set: { Country: "Argentina" }})
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Chunghua","Capital Federal","Taipei City","New Taipei City", 'Tainan', 'keelung']}},{$set: { Country: "Taiwan, Province of China" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Saint-Petersburg","Orenbourg","Rostov-on-Don"]}},{$set: { Country: "Russian Federation" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Palma de Mallorca","Ciutadella de Menorca","Las Palmas","Santa Cruz de Bezana"]}},{$set: { Country: "Spain" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Sanremo","Guastalla","Ciri ","Casalmaggiore","Milano","Erice","torino","Roma","Alatri","Urbino","L Aquila","Rovato (Brescia)","Genova", 'Ancona', 'Bologna', 'Busto Arsizio', 'Campobasso', 'Civitavecchia', 'Como', 'Cuneo', 'Florence', 'Formia', 'Licata', 'Macerata', 'Messina', 'Monselice', 'Monterotondo', 'Novara', 'Perugia', 'Pesaro', 'Pescara', 'Pisa', 'Ravenna', 'Rimini', 'Rome', 'Rovereto','San Benedetto del Tronto', 'Trieste', 'Turin', 'Vercelli', 'Verona', 'vicenza']}},{$set: { Country: "Italy" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Heythuysen","Dirksland","Blaricum", 'Groningen', 'Haarlem', 'Hoorn', 'Lelystad', 'Rotterdam', 'Utrecht', 'Waalwijk']}},{$set: { Country: "Netherlands" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Petach Tikva", 'Haifa']}},{$set: { Country: "Israel" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Hampstead","KINGSTON UPON THAMES","Box Hill", 'Belfast', 'Birmingham', 'Chelmsford', 'Chichester', 'Colchester', 'Exeter',  'High Wycombe', 'Leeds', 'London', 'Newcastle upon Tyne', 'Newport', 'Norwich', 'Nottingham', 'Redditch', 'St Albans', 'Stevenage', 'Sunderland', 'Taunton']}},{$set: { Country: "United Kingdom" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Li ge","Woluwe St Lambert","Bree", 'Diest', 'Gent', 'Namur', 'Roeselare', 'Verviers', 'Vilvoorde', 'leuven']}},{$set: { Country: "Belgium" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Queretaro","Acapulco", 'Apizaco', 'Saltillo', 'Tampico']}},{$set: { Country: "Mexico" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Kyunggi-do","Jeju"]}},{$set: { Country: "Korea, Republic of" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Esfahan",]}},{$set: { Country: "Iran, Islamic Republic of" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Cagayan de Oro City"]}},{$set: { Country: "Philippines" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Port au Prince"]}},{$set: { Country: "Haiti" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Humboldt", 'Longueuil', 'Montreal', 'Newmarket']}},{$set: { Country: "Canada" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Tahiti"]}},{$set: { Country: "French Polynesia" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Moravska Trebova","Hodon n","Hradec Kr lov ", 'Brno', 'Ostrava', 'Ostrov', 'Pilsen', 'Valasske Mezirici', 'Klatovy', 'Kolin']}},{$set: { Country: "Czech Republic" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Providencia", 'Iquique', 'Punta Arenas', 'San Fernando', 'Santiago']}},{$set: { Country: "Chile" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Bienne","Flawil","Aktau", 'Bern', 'Chur','Frauenfeld', 'Geneva', 'Lugano', 'Rheinfelden', 'Wil']}},{$set: { Country: "Switzerland" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Barakovichi", 'Minsk']}},{$set: { Country: "Belarus" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Samosir Island"]}},{$set: { Country: "Indonesia" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["Kanagawa", 'Nagoya', 'Okayama', 'Shizuoka', 'Toyama', 'YOKOHAMA', 'Yamagata', 'Yokohama', 'fukuoka']}},{$set: { Country: "Japan" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["dnepropetrovsk", 'Kharkiv', 'Kyiv']}},{$set: { Country: "Ukraine" }});
+
+db.player_borncountry.updateMany({pl_city_country: { $in: ["schwaebisch hall", 'Bad Hersfeld', 'Berlin']}},{$set: { Country: "Germany" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["South Korea", 'Andong', 'Anseong', 'Suwon']}},{$set: { Country: "Korea, Republic of" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Almaty", 'Shymkent', 'Temirtau']}},{$set: { Country: "Kazakhstan" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Antananarivo", 'Toamasina']}},{$set: { Country: "Madagascar" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Antigua", 'Bermuda', "St. John's"]}},{$set: { Country: "Antigua and Barbuda" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Asenovgrad",'Dimitrovgrad', 'Sliven', 'Sofia', 'VARNA']}},{$set: { Country: "Bulgaria" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Auckland", 'New Plymouth', 'Wellington']}},{$set: { Country: "New Zealand" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Baja", 'Budapest']}},{$set: { Country: "Hungary" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Bangkok"]}},{$set: { Country: "Thailand" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Barquisimeto", 'Caracas', 'Venezuela']}},{$set: { Country: "Venezuela, Bolivarian Republic of" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Belgrade", 'Novi Sad', 'Serbia & Montenegro', 'Yugoslavia']}},{$set: { Country: "Serbia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Bogota", 'Cartago', 'Pereira']}},{$set: { Country: "Colombia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Bridgetown"]}},{$set: { Country: "Barbados" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Chisinau", 'Moldova']}},{$set: { Country: "Moldova, Republic of" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Dubai"]}},{$set: { Country: "United Arab Emirates" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Frederiksberg"]}},{$set: { Country: "Denmark" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Funchal", 'Guimaraes', 'Lisboa', 'Lisbon', 'Montijo', 'Peniche', 'Porto']}},{$set: { Country: "Portugal" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Gitega"]}},{$set: { Country: "Burundi" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Guatemala City"]}},{$set: { Country: "Guatemala" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Guayaquil", 'Quito']}},{$set: { Country: "Ecuador" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Harare"]}},{$set: { Country: "Zimbabwe" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Havana"]}},{$set: { Country: "Cuba" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Helsinki", 'Turku']}},{$set: { Country: "Finland" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Istanbul", 'Izmir', 'Tekirdag', 'Turkiye']}},{$set: { Country: "Turkey" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Kinshasa"]}},{$set: { Country: "Congo, the Democratic Republic of the" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["La Paz", 'Santa Cruz', 'Bolivia']}},{$set: { Country: "Bolivia, Plurinational State of" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Lima"]}},{$set: { Country: "Peru" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Namangan", 'Nukus', 'Tashkent']}},{$set: { Country: "Uzbekistan" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Oakville"]}},{$set: { Country: "Costa Rica" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Saipan"]}},{$set: { Country: "Northern Mariana Islands" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Siauliai", 'Vilnius']}},{$set: { Country: "Lithuania" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Split", 'Zagreb', 'split']}},{$set: { Country: "Croatia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Tallinn", 'Tartu']}},{$set: { Country: "Estonia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Trbovlje", 'maribor']}},{$set: { Country: "Slovenia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Willemstad", 'Curacao']}},{$set: { Country: "Curaçao" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Windhoek"]}},{$set: { Country: "Namibia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Yerevan"]}},{$set: { Country: "Armenia" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["dublin"]}},{$set: { Country: "Ireland" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["oran"]}},{$set: { Country: "Algeria" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Brunei"]}}, {$set: { Country: "Brunei Darussalam" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Iran"]}}, {$set: { Country: "Iran, Islamic Republic of" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Syria"]}}, {$set: { Country: "Syrian Arab Republic" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Tanzania"]}}, {$set: { Country: "Tanzania, United Republic of" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Trinidad And Tobago", 'Trinidad']}}, {$set: { Country: "Trinidad and Tobago" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["CHINA"]}},{$set: { Country: "China" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["chile"]}},{$set: { Country: "Chile" }});
+
+db.player_borncountry.updateMany({Country: { $in: ["Singapore - OLD"]}},{$set: { Country: "Singapore" }});
+
+db.player_borncountry.updateMany({Country: { $in: ['Crimea']}},{$set: { Country: "Ukraine" }});
+
+db.player_borncountry.updateMany({Country: { $regex: /C.rdoba/}}, { $set: { Country: "Argentina" }});
+
+db.player_borncountry.updateMany({Country: { $in: ['North Macedonia', 'Macedonia']}},{$set: { Country: "Macedonia, the Former Yugoslav Republic of" }});

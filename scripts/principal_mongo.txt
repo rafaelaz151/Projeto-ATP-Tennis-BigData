@@ -1,0 +1,441 @@
+#ATENÇÂO: A meio vai ser preciso abrir outros txt e corre-los. Essas indicações encontram-se com # atrás
+// Criação de coleções
+
+
+// Criação da coleção player
+
+
+db.players.aggregate([
+  {
+    // Stage 1: Deduplicate and Group
+    $group: {
+      _id: "$LinkPlayer",
+      Name: { $first: "$PlayerName" },
+      Born: { $first: "$Born" },
+      Height: { $first: "$Height" },
+      Hand: { $first: "$Hand" },
+      PlayerLink: { $first: "$LinkPlayer" }
+    }
+  },
+  {
+    // Stage 2: Clean and Format
+    $project: {
+      _id: 0,
+      PlayerLink: {
+        $replaceAll: {
+          input: "$PlayerLink",
+          find: ":",
+          replacement: ""
+        }
+      },
+      Name: "$Name",
+      Born: "$Born",
+      Height: "$Height",
+      Hand: "$Hand"
+    }
+  },
+  {
+    // Stage 3: Output to new collection
+    $merge: "player"
+  }
+]);
+
+
+
+// Criação da coleção tournaments
+
+
+
+db.players.aggregate([
+  {
+    // Stage 1: Criação do campo de agrupamento (Filter)
+    $project: {
+      Filter: { $concat: ["$Tournament", "", "$Date"] }, // Combina Nome e Data
+      Name: "$Tournament",
+      Location: "$Location",
+      Date: "$Date",
+      Ground: "$Ground",
+      Prize: "$Prize"
+    }
+  },
+  {
+    // Stage 2: Deduplicação e Agrupamento
+    $group: {
+      _id: "$Filter",
+      Name: { $first: "$Name" },
+      Location: { $first: "$Location" },
+      Date: { $first: "$Date" },
+      Ground: { $first: "$Ground" },
+      Prize: { $first: "$Prize" }
+    }
+  },
+  {
+    // Stage 3: Limpeza Final
+    $project: {
+      '_id': 0 // Remove o campo _id (que contém o "Filter" combinado)
+    }
+  },
+  {
+    // Stage 4: Saída para nova coleção
+    $merge: "tournaments"
+  }
+]);
+
+
+
+// Criação da coleção games
+
+
+
+db.players.aggregate([
+  {
+    // Stage 1: Seleção e Renomeação de Campos
+    $project: {
+      _id: 0, 
+      Player: "$PlayerName",
+      Oponent: "$Oponent",
+      Tournament: "$Tournament",
+      Date: "$Date",
+      GameRound: "$GameRound",
+      Ground: "$Ground",
+      GameRank: "$GameRank",
+      WL: "$WL", // Win/Loss
+      Score: "$Score"
+    }
+  },
+  {
+    // Stage 2: Saída para nova coleção
+    $merge: "games"
+  }
+])
+
+
+
+// Tratamento e Limpeza da coleção player
+
+
+// Adicionar coluna id_player
+
+
+db.player.find().forEach(doc => {
+    if (doc.PlayerLink) {
+        const parts = doc.PlayerLink.split("/");
+        const code = parts[parts.length - 2];
+
+        db.player.updateOne(
+            { _id: doc._id },
+            { $set: { id_player: code } }
+        );
+    }
+});
+
+
+
+#Updates extensos de Born e Hand. Consultar update_born.txt e update_hand.txt e executá-los
+
+
+
+// Criação de player_borncountry
+
+
+db.player.aggregate([
+  {
+    // 1. Criação das colunas iniciais
+    $project: {
+      pl_city_country: "$Born",
+      Country: {
+        $arrayElemAt: [
+          { $split: ["$Born", ","] }, // Divide a string pela vírgula
+          -1                          // Seleciona o último elemento (o país)
+        ]
+      }
+    }
+  },
+  {
+    // 2. Agrupamento para remover duplicados
+    $group: {
+      _id: {
+        pl_city_country: "$pl_city_country",
+        Country: "$Country"
+      }
+    }
+  },
+  {
+    // 3. Reorganização para remover o aninhamento do _id
+    $project: {
+      _id: 0,
+      pl_city_country: "$_id.pl_city_country",
+      Country: "$_id.Country"
+    }
+  },
+  {
+    // 4. Exportação para a nova coleção
+    $merge: "player_borncountry"
+  }
+])
+
+
+
+#Updates à coleção player_borncountry: Consultar update_borncountry.txt e executar
+
+
+
+// Criação da coleção location_tournaments
+
+
+
+db.players.aggregate([
+  {
+    $project: {
+      City_country: "$Location",
+      Country: {
+        $arrayElemAt: [
+          { $split: ["$Location", ","] },
+          -1
+        ]
+      }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        City_country: "$City_country",
+        Country: "$Country"
+      }
+    }
+  },
+  {
+
+    $project: {
+      _id: 0,
+      City_country: "$_id.City_country",
+      Country: "$_id.Country"
+    }
+  },
+  {
+    $merge: "location_tournaments"
+  }
+]);
+
+
+#Update à coleção location_tournamentes. Consultar update_location e executar
+
+
+
+// Criação da coleção games2
+
+
+db.games.aggregate([{ $group: { _id: { Player: "$Player", Oponent: "$Oponent", Tournament: "$Tournament", Date: "$Date", GameRound: "$GameRound", Ground: "$Ground", GameRank: "$GameRank", WL: "$WL", Score: "$Score" }, count: { $sum: 1 } } },{ $project: { "_id": 0, Player: "$_id.Player", Oponent: "$_id.Oponent", Tournament: "$_id.Tournament", Date: "$_id.Date", GameRound: "$_id.GameRound", Ground: "$_id.Ground", GameRank: "$_id.GameRank", WL: "$_id.WL", Score: "$_id.Score"} }, {$merge: "games2"}])
+
+
+// Update á coleção games2
+
+
+db.games2.updateMany({ $and: [{ Tournament: "M15 Antalya" }, { Date: "2021.05.31 - 2021.06.06" }] }, { $set: { Ground: "Clay" } });
+
+db.games2.updateMany({ $and: [{ Tournament: "M15 Cancun" }, { Date: "2021.10.11 - 2021.10.17" }] }, { $set: { Ground: "Hard" } });
+
+db.games2.updateMany({ $and: [{ Tournament: "M15 Opava" }, { Date: "2021.11.15 - 2021.11.21" }] }, { $set: { Ground: "Carpet" } });
+
+
+
+// Guardar noutra coleção os seguintes dados de games2: Opponent:"bye", WL:"", Scores errados. Depois de guardado em games_filtered, delete da games2
+
+
+db.games2.aggregate([
+  {
+    // Stage 1: Filtro com condição OU
+    // Vai buscar se o Oponente for 'bye' OU se o WL for vazio
+    $match: {
+      $or: [
+        { Oponent: "bye" },
+        { WL: "" },
+	// 3. Jogo Específico 1
+        { 
+          Player: "Ilya Ivashka", 
+          Oponent: "Martins Podzus",
+          Date: "2016.07.11 - 2016.07.17", 
+          Score: '62 75 60'
+        },
+
+        // 4. Jogo Específico 2
+        { 
+          Player: "Darian King", 
+          Oponent: "Marcelo Arevalo",
+          Date: "2014.03.31 - 2014.04.06", 
+          Score: '61 63 63' 
+        },
+
+        // 5. Jogo Específico 3
+        { 
+          Player: "Jakob Hlasek", 
+          Oponent: "Ruslon Rainov",
+          Date: "1987.07.20 - 1987.07.26", 
+          Score: '64 60' 
+        },
+
+        // 6. Jogo Específico 4
+        { 
+          Player: "Jimy Szymanski", 
+          Oponent: "Ricardo Mena",
+          Date: "1994.01.31 - 1994.02.06", 
+          Score: "57 75 75" 
+        }
+
+      ]
+    }
+  },
+  {
+    // Stage 2: Seleção de Campos
+    $project: {
+      _id: 0, 
+      Player: "$Player",
+      Oponent: "$Oponent",
+      Tournament: "$Tournament",
+      Date: "$Date",
+      GameRound: "$GameRound",
+      Ground: "$Ground",
+      GameRank: "$GameRank",
+      WL: "$WL",
+      Score: "$Score"
+    }
+  },
+  {
+    // Stage 3: Saída para a nova coleção
+    // Podes alterar "games_filtered" para o nome que quiseres dar à coleção
+    $out: "games_filtered"
+  }
+])
+
+
+
+db.games2.deleteMany({
+  $or: [
+    // 1. Condições gerais
+    { Oponent: "bye" },
+    { WL: "" },
+
+    // 2. Jogo Específico 1
+    { 
+      Player: "Ilya Ivashka", 
+      Oponent: "Martins Podzus",
+      Date: "2016.07.11 - 2016.07.17",
+      Score: '62 75 60'
+    },
+
+    // 3. Jogo Específico 2
+    { 
+      Player: "Darian King", 
+      Oponent: "Marcelo Arevalo",
+      Date: "2014.03.31 - 2014.04.06",
+      Score: '61 63 63' 
+    },
+
+    // 4. Jogo Específico 3
+    { 
+      Player: "Jakob Hlasek", 
+      Oponent: "Ruslon Rainov",
+      Date: "1987.07.20 - 1987.07.26",
+      Score: '64 60' 
+    },
+
+    // 5. Jogo Específico 4
+    { 
+      Player: "Jimy Szymanski", 
+      Oponent: "Ricardo Mena",
+      Date: "1994.01.31 - 1994.02.06",
+      Score: "57 75 75" 
+    }
+  ]
+})
+
+
+
+
+// Criação das colunas winner e loser
+
+
+db.games2.updateMany(
+  {},
+  [
+    {
+      $set: {
+        winner: {
+          $cond: [
+            { $eq: ["$WL", "W"] },
+            "$Player",
+            "$Oponent"
+          ]
+        },
+        loser: {
+          $cond: [
+            { $eq: ["$WL", "W"] },
+            "$Oponent",
+            "$Player"
+          ]
+        }
+      }
+    }
+  ]
+);
+
+
+
+// Remover jogos duplicados. Entre os duplicados remover aqueles que o resultado é loss (WL = "L").
+
+
+
+const losersToDelete = db.games2.aggregate([
+  {
+    $group: {
+      _id: {
+        Date: "$Date",
+        Tounament: "$Tounament",
+        Ground: "$Ground",
+        GameRound: "$GameRound",
+        winner: "$winner",
+        loser: "$loser"
+      },
+      docs: { $push: { _id: "$_id", WL: "$WL" } },
+      count: { $sum: 1 }
+    }
+  },
+  // Filtra apenas os grupos duplicados (count > 1)
+  {
+    $match: { count: { $gt: 1 } }
+  },
+  // Extrai apenas os _id dos documentos WL = "L"
+  {
+    $project: {
+      loserIds: {
+        $map: {
+          input: {
+            $filter: {
+              input: "$docs",
+              as: "d",
+              cond: { $eq: ["$$d.WL", "L"] }
+            }
+          },
+          as: "l",
+          in: "$$l._id"
+        }
+      }
+    }
+  },
+  { $unwind: "$loserIds" },
+  { $project: { _id: "$loserIds" } }
+]).toArray();
+
+// 2) Deletar todos os documentos identificados
+if (losersToDelete.length > 0) {
+  const ids = losersToDelete.map(d => d._id);
+  const res = db.games2.deleteMany({ _id: { $in: ids } });
+  print("Removidos:", res.deletedCount);
+} else {
+  print("Nenhum WL:L encontrado nos grupos duplicados.");
+}
+
+
+
+
+
